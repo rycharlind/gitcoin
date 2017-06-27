@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 const Web3 = require('web3');
 const contract = require('truffle-contract');
 const metaincoinArtifacts = require('../../build/contracts/MetaCoin.json');
+const gitTokenArtifacts = require('../../build/contracts/GitToken.json');
 import { canBeNumber } from '../util/validation';
 
 @Component({
@@ -10,6 +11,7 @@ import { canBeNumber } from '../util/validation';
 })
 export class AppComponent {
   MetaCoin = contract(metaincoinArtifacts);
+  //MetaCoin = contract(gitTokenArtifacts);
 
   // TODO add proper types these variables
   account: any;
