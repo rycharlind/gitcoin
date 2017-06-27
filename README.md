@@ -1,13 +1,5 @@
 # GitCoin
 
-## Demo
-Create a coin with an initial supply and send an amount to your Ethereum wallet address
-
-![demo](src/assets/demo.gif)
-
-## How to use
-There are 2 small parts to successfully running this project.
-
 ### Part 1
 
 1. `git clone https://github.com/rycharlind/gitcoin.git`
