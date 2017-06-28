@@ -301,12 +301,12 @@
         }
       },
       "links": {
-        "ConvertLib": "0x0dc97aa0d89de5d0da6961568d6ab619bf1518dd"
+        "ConvertLib": "0xd849035339eb34c2016cf14726acdbecc8b8a60b"
       },
-      "address": "0xdd568b47f35e977391d81f29d01ea7d52c1eba08",
-      "updated_at": 1498598026539
+      "address": "0xe8968c12860482e940c97f99392e2a1bf9680a04",
+      "updated_at": 1498623708125
     }
   },
   "schema_version": "0.0.5",
-  "updated_at": 1498598026539
+  "updated_at": 1498623708125
 }

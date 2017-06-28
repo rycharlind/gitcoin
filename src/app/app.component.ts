@@ -3,6 +3,7 @@ const Web3 = require('web3');
 const contract = require('truffle-contract');
 const metaincoinArtifacts = require('../../build/contracts/MetaCoin.json');
 const gitTokenArtifacts = require('../../build/contracts/GitToken.json');
+const blockTwit = require('../../build/contracts/BlockTwit.json');
 import { canBeNumber } from '../util/validation';
 
 @Component({
@@ -10,8 +11,11 @@ import { canBeNumber } from '../util/validation';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  MetaCoin = contract(metaincoinArtifacts);
-  //MetaCoin = contract(gitTokenArtifacts);
+
+  //MetaCoin = contract(metaincoinArtifacts);
+  MetaCoin = contract(gitTokenArtifacts);
+
+  BlockTwit = contract(blockTwit);
 
   // TODO add proper types these variables
   account: any;
@@ -24,9 +28,47 @@ export class AppComponent {
   status: string;
   canBeNumber = canBeNumber;
 
+  message: string;
+  blockTwitMessage: string;
+
   constructor() {
     this.checkAndInstantiateWeb3();
     this.onReady();
+  }
+
+  sendTwit() {
+    const receiver = this.recipientAddress;
+    let twit;
+    this.BlockTwit.deployed()
+      .then((instance) => {
+        twit = instance;
+        return twit.sendTwit(this.message, receiver, {
+          from: this.account
+        });
+      })
+      .then((result) => {
+
+        this.setStatus("Transaction complete!");
+
+        console.log(result);
+
+        for (var i = 0; i < result.logs.length; i++) {
+          var log = result.logs[i];
+
+          if (log.event == "Message") {
+            // We found the event!
+            console.log(log.args.message);
+            this.blockTwitMessage = log.args.message;
+            break;
+          }
+        }
+
+        this.refreshBalance();
+      })
+      .catch((e) => {
+        console.log(e);
+        this.setStatus("Error sending coin; see log.");
+      });
   }
 
   checkAndInstantiateWeb3 = () => {
@@ -45,6 +87,7 @@ export class AppComponent {
   onReady = () => {
     // Bootstrap the MetaCoin abstraction for Use.
     this.MetaCoin.setProvider(this.web3.currentProvider);
+    this.BlockTwit.setProvider(this.web3.currentProvider);
 
     // Get the initial account balance so it can be displayed.
     this.web3.eth.getAccounts((err, accs) => {

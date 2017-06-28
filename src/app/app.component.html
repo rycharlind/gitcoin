@@ -2,7 +2,7 @@
   <div class="hero-body">
     <div class="container">
       <h1 class="title is-1">
-        GitCoin Starter Dapp
+        BlockTwits Starter Dapp
       </h1>
       <h2 class="title">
         You have <span class="is-medium has-underline">{{balance}}</span> COIN
@@ -12,34 +12,21 @@
 </section>
 <br>
 <div class="container">
-  <h1 class="title">Send Metacoin</h1>
+  <h1 class="title">Send BlockTwit</h1>
   <h1 class="title is-4 is-info help">{{status}}</h1>
-
+  <h2>{{blockTwitMessage}}</h2>
   <form #coinForm="ngForm">
     <div class="field">
-      <label class="label">Amount</label>
+      <label class="label">Twit</label>
       <p class="control">
         <input
-          [(ngModel)]="sendingAmount"
+          [(ngModel)]="message"
           class="input"
           type="text"
-          placeholder="95"
-          name="sendingAmount"
-          required
-          #sendingAmountModel="ngModel">
+          placeholder="Wasssaaaaabbiii"
+          name="message"
+          required>
       </p>
-      <div *ngIf="sendingAmountModel.errors && (sendingAmountModel.dirty || sendingAmountModel.touched)"
-           class="help is-danger">
-          <p [hidden]="!sendingAmountModel.errors.required">
-            This field is required
-          </p>
-      </div>
-      <div *ngIf="!sendingAmountModel.errors && (sendingAmountModel.dirty || sendingAmountModel.touched)"
-           class="help is-danger">
-          <p [hidden]="canBeNumber(sendingAmount)">
-            Must be a number
-          </p>
-      </div>
     </div>
     <div class="field">
       <label class="label">To Address</label>
@@ -73,7 +60,7 @@
       <p class="control">
         <button
           [disabled]="!coinForm.valid"
-          (click)="sendCoin()"
+          (click)="sendTwit()"
           class="button is-primary">
           Send
         </button>
